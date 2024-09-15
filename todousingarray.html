@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo-List Using Array</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .mainHead{
+            font-size: 2.5rem;
+            font-family: Arial;
+            padding: 30px;
+        }
+
+        .typingTasks{
+            font-size: 1rem;
+            text-align: left;
+            padding: 3px 5px;
+            width: 300px;
+        }
+
+        .addButton{
+            padding: 4px 10px;
+        }
+
+        .unorderedClassList{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .classList{
+            margin-top: 20px;
+            font-size: 2rem;
+            text-align: left;
+            margin-left: 20px;
+            list-style: none;
+        }
+        .box{
+            width: 400px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1 class="mainHead">Todo App</h1>
+        <input type="text" class="typingTasks" id="addingTasks"> <button class="addButton" id="buttonToAdd">Add</button>
+        <ul class="unorderedClassList" id="u-l">
+            <!-- <li class="classList">Let's Work.</li>
+            <li class="classList">Let's Work.</li>
+            <li class="classList">Let's Work.</li> -->
+        </ul>
+    </div>
+    <script>
+        let arr = [];
+        let buttonToAdd = document.querySelector('#buttonToAdd');
+        let addingTasks = document.querySelector('#addingTasks');
+        let unorderedClassList = document.querySelector('#u-l');
+        buttonToAdd.addEventListener('click', ()=>{
+            let tasks = addingTasks.value;
+            arr.push(tasks);
+            console.log(arr);
+            unorderedClassList.innerHTML =  `<li class="classList">${arr}</li> \n`;
+            addingTasks.value = '';
+        });
+    </script>
+</body>
+</html>
