@@ -99,6 +99,7 @@ ul li{
     align-items: center;
     align-content: center;
     justify-content: center;
+    width: 750px;
     list-style: none;
     position: relative;
     padding: 10px 50px 10px 50px;
@@ -136,7 +137,8 @@ ul li::before{
     background-position: center center;
 }
 
-ul li span{
+ul li img{
+    width: 65px;
     position: absolute;
     padding: 10px 15px;
     right: 15px;
@@ -147,8 +149,7 @@ ul li span{
     color: black;
 }
 
-ul li span:hover{
-    /* background-color: black; */
+ul li img:hover{
     background-color: rgb(212, 212, 212);
     transition: all 0.4s;
     border-radius: 50%;
@@ -237,8 +238,9 @@ ul .checked::before{
 
 .dropdown-item{
     list-style-type: none;
-    width: 100%
-}
+    width: 100%;
+    margin: 0px;
+}   
 
 .high-priority:hover{
     background-color: rgb(192, 55, 21);

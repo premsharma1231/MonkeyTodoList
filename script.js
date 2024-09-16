@@ -8,9 +8,23 @@ let typeTasks = document.getElementById('typeTasks');
 let listContainer = document.getElementById('listContainer');
 let resetTasksButton = document.getElementById('resetTasksButton');
 let errorMessage = document.getElementById('errorMessage');
+let dropdownToggle = document.getElementsByClassName('dropdown-toggle');
+let priorityText = '';
 
 // Adding a task
 addTasksButton.addEventListener('click', addTask);
+let priority = (priority) =>{
+    if(priority === 'high'){
+        priorityText = 'High Priority';
+        dropdownToggle.innerHTML = priorityText;
+    } else if(priority === 'medium'){
+        priorityText = 'Medium Priority';
+        dropdownToggle.innerHTML = priorityText;
+    } else if(priority === 'low'){
+        priorityText = 'Low Priority';
+        dropdownToggle.innerHTML = priorityText;
+    }
+}
 
 function addTask() {
     if (typeTasks.value.trim() === '') {
@@ -22,11 +36,13 @@ function addTask() {
     } else {
         let li = document.createElement("li");
         li.innerHTML = typeTasks.value;
-        let span = document.createElement("span");
-        span.innerHTML = '\u00d7';
+        let span = document.createElement("img");
+        let priority = document.createElement("p");
+        priority.innerText = priorityText;
+        span.src = './images/trash-bin.gif';
+        li.appendChild(priority);
         li.appendChild(span);
         listContainer.appendChild(li);
-        li.classList.add('removeBorder');
         typeTasks.style.borderColor = 'white';
         gsap.from(li, { opacity: 0, x: -100, duration: 0.3 });
         typeTasks.value = '';
@@ -39,7 +55,7 @@ listContainer.addEventListener('click', function (e) {
     if (e.target.tagName === 'LI') {
         e.target.classList.toggle("checked");
         saveData();
-    } else if (e.target.tagName === "SPAN") {
+    } else if (e.target.tagName === "IMG") {
         e.target.parentElement.remove();
         saveData();
     }
