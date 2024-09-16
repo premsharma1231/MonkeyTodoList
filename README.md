@@ -7,4 +7,10 @@ Language Below:-
 * CSS,
 * HTML,
 * BootStrap.
-* Use below link to use :- 
+* Use below link to use :- https://premsharma1231.github.io/MonkeyTodoList/
+  
+17/09/2024 :- Now that I've added some new features, we're back with the updated code.
+The improved features are as follows:
+* Date Section with Todo;
+* Priority Based on Todo.
+* Use below link to use :- https://premsharma1231.github.io/MonkeyTodoList/
