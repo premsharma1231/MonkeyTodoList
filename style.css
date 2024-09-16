@@ -23,10 +23,10 @@ body{
     flex-direction: column;
     justify-items: left;
     background-color: white;
-    width: 500px;
+    width: 820px;
     margin: auto auto;
     margin-top: 100px;
-    padding-bottom: 30px;
+    padding: 0px 0px 30px 0px;
     box-shadow: 0px 0px 20px;
     border-radius: 12px;
 }
@@ -85,6 +85,7 @@ body{
     color: white;
     border: none;
     cursor: pointer;
+    padding: 0px;
 }
 
 #addTasksButton:hover{
@@ -94,9 +95,13 @@ body{
 }
 
 ul li{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
     list-style: none;
     position: relative;
-    padding: 10px 0px 10px 50px;
+    padding: 10px 50px 10px 50px;
     line-height: 25px;
     user-select: none;
     cursor: pointer;
@@ -105,6 +110,8 @@ ul li{
     margin-top: 10px;
     font-size: 1.2rem;
     font-weight: 600;
+    word-wrap: break-word; /* Enables text to wrap within the li */
+    white-space: pre-wrap;
 }
 
 ul{
@@ -132,7 +139,6 @@ ul li::before{
 ul li span{
     position: absolute;
     padding: 10px 15px;
-    bottom: 0px;
     right: 15px;
     font-size: 30px;
     z-index: 5;
@@ -170,13 +176,14 @@ ul .checked::before{
 
 #resetTasksButton{
     height: 40px;
-    width: 60px;
+    width: 65px;
     margin-left: 5px;
     font-size: 1rem;
     background-color: rgba(0, 0, 0, 0.774);
     color: white;
     border: none;
     cursor: pointer;
+    padding: 0px;
 }
 
 #resetTasksButton:hover{
@@ -205,4 +212,46 @@ ul .checked::before{
 #crossPng{
     width: 14px;
     padding-right: 6px;
+}
+
+/* date selector */
+#dateSelector{
+    margin: 0px 7px 0px 2px;
+    height: 35px;
+}
+
+
+
+/* Priority Selection */
+#SelectPriority{
+    padding: 0px 8px 0px 0px;
+}
+
+#SelectPriority h1{
+    font-size: medium;
+}
+
+#dropDownPriority{
+    display: none;
+}
+
+.dropdown-item{
+    list-style-type: none;
+    width: 100%
+}
+
+.high-priority:hover{
+    background-color: rgb(192, 55, 21);
+    color: white;
+}
+.medium-priority:hover{
+    background-color: rgb(49, 102, 36);
+    color: white;
+}
+.low-priority:hover{
+    background-color: rgb(23, 128, 146);
+    color: white;
+}
+.dropdown-menu{
+    width: 100px;
 }
