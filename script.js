@@ -8,7 +8,7 @@ let typeTasks = document.getElementById('typeTasks');
 let listContainer = document.getElementById('listContainer');
 let resetTasksButton = document.getElementById('resetTasksButton');
 let errorMessage = document.getElementById('errorMessage');
-let dropdownToggle = document.getElementsByClassName('dropdown-toggle');
+let SelectPriorityText = document.getElementById('SelectPriorityText');
 let priorityText = '';
 
 // Adding a task
@@ -16,13 +16,13 @@ addTasksButton.addEventListener('click', addTask);
 let priority = (priority) =>{
     if(priority === 'high'){
         priorityText = 'High Priority';
-        dropdownToggle.innerHTML = priorityText;
+        SelectPriorityText.innerHTML = priorityText;
     } else if(priority === 'medium'){
         priorityText = 'Medium Priority';
-        dropdownToggle.innerHTML = priorityText;
+        SelectPriorityText.innerHTML = priorityText;
     } else if(priority === 'low'){
         priorityText = 'Low Priority';
-        dropdownToggle.innerHTML = priorityText;
+        SelectPriorityText.innerHTML = priorityText;
     }
 }
 priority();
