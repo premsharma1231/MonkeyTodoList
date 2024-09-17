@@ -25,6 +25,7 @@ let priority = (priority) =>{
         dropdownToggle.innerHTML = priorityText;
     }
 }
+priority();
 
 function addTask() {
     if (typeTasks.value.trim() === '') {
@@ -37,16 +38,30 @@ function addTask() {
         let li = document.createElement("li");
         li.innerHTML = typeTasks.value;
         let span = document.createElement("img");
-        let priority = document.createElement("p");
-        priority.innerText = priorityText;
+        let priorityList = document.createElement("p");
+        let h1 = document.createElement("h1");
+        h1.innerText = document.getElementById('dateSelector').value;
+        priorityList.innerText = priorityText;
         span.src = './images/trash-bin.gif';
-        li.appendChild(priority);
+        li.appendChild(priorityList);
+        assignClasses(priorityList);
+        li.appendChild(h1);
         li.appendChild(span);
         listContainer.appendChild(li);
         typeTasks.style.borderColor = 'white';
         gsap.from(li, { opacity: 0, x: -100, duration: 0.3 });
         typeTasks.value = '';
         saveData();
+    }
+}
+
+let assignClasses = (priorityList) =>{
+    if (priorityText === 'High Priority') {
+        priorityList.classList.toggle('highPriorityClass');
+    } else if(priorityText === 'Medium Priority'){
+        priorityList.classList.toggle('mediumPriorityClass');
+    } else if(priorityText === 'Low Priority'){
+        priorityList.classList.toggle('lowPriorityClass');
     }
 }
 
@@ -64,13 +79,13 @@ listContainer.addEventListener('click', function (e) {
 // Mouseover and mouseout events for scaling
 listContainer.addEventListener("mouseover", function (e) {
     if (e.target.tagName === "LI") {
-        gsap.to(e.target, { scale: 1.05, marginRight: '15px', marginLeft: '15px', duration: 0.2 });
+        gsap.to(e.target, { scale: 1.05, duration: 0.2 });
     }
 });
 
 listContainer.addEventListener("mouseout", function (e) {
     if (e.target.tagName === "LI") {
-        gsap.to(e.target, { scale: 1, marginRight: '0', marginLeft: '0', duration: 0.2 });
+        gsap.to(e.target, { scale: 1, duration: 0.2 });
     }
 });
 
