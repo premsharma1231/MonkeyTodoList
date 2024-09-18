@@ -35,6 +35,7 @@ function addTask() {
         setTimeout(() => (errorMessage.style.display = "none"), 2000);
         errorMessage.style.color = 'red';
     } else {
+        showList();
         let li = document.createElement("li");
         li.innerHTML = typeTasks.value;
         let span = document.createElement("img");
@@ -51,8 +52,9 @@ function addTask() {
         typeTasks.style.borderColor = 'white';
         gsap.from(li, { opacity: 0, x: -100, duration: 0.3 });
         typeTasks.value = '';
+
         saveData();
-    }
+        }
 }
 
 let assignClasses = (priorityList) =>{
@@ -98,6 +100,7 @@ function showList() {
     const listItems = document.querySelectorAll("#listContainer li");
     listItems.forEach(item => {
         gsap.from(item, { opacity: 0, x: -100, duration: 0.3 });
+        gsap.to(item, {opacity :100, x:0})
     });
 }
 
