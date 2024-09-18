@@ -10,6 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" media="screen and (min-width: 770px) and (max-width: 990px)" href="tablet.css">
+    <link rel="stylesheet" media="screen and (min-width: 500px) and (max-width: 769px)" href="miniTablet.css">
+    <link rel="stylesheet" media="screen and (min-width: 0px) and (max-width: 499px)" href="phone.css">
 </head>
 <body>
     <div class="container">
@@ -21,7 +24,7 @@
                 <input type="text" placeholder="Add Your Task" id="typeTasks">
                 <p id="errorMessage"><img src="./images/crosspng.png" id="crossPng" alt="">Please add task.</p>
             </div>
-            <input type="date" id="dateSelector">
+            <input type="date" id="dateSelector" placeholder="Date">
             <div class="dropdown" id="SelectPriority">
                 <button class="btn btn-secondary dropdown-toggle" id="SelectPriorityText" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Select Priority
