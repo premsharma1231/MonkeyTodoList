@@ -204,8 +204,8 @@ ul .checked::before{
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: 16px;
-    top: 58px;
+    left: 25px;
+    top: -20px;
     font-size: 13px;
     display: none;
     transition: all 0.2s ease;
