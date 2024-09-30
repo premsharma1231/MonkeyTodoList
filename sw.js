@@ -3,9 +3,9 @@ self.addEventListener('install', event => {
       caches.open('todo-list-cache').then(cache => {
         return cache.addAll([
           '/',
-          '/index.html',
-          '/css/styles.css',
-          '/js/script.js',
+          'index.html',
+          'styles.css',
+          'script.js',
           '/images/icon-192x192.png',
           '/images/icon-512x512.png'
         ]);
