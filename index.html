@@ -22,11 +22,10 @@
         </div>
         <div class="typingTasks">
             <div id="forRelative">
-                <input type="text" placeholder="Add Your Task" id="typeTasks">
+                <input type="text" aria-label placeholder="Add Your Task" id="typeTasks">
                 <p id="errorMessage"><img src="./images/crosspng.png" id="crossPng" alt="">Please add task.</p>
             </div>
-            <input type="date" id="dateSelector" placeholder="Date">
-            <input type="time" id="timeSelector" placeholder="Time">
+            <input type="datetime-local" aria-label id="dateSelector" placeholder="Date">
             <div class="dropdown" id="SelectPriority">
                 <button class="btn btn-secondary dropdown-toggle" id="SelectPriorityText" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Select Priority
