@@ -41,18 +41,20 @@ function addTask() {
         let span = document.createElement("img");
         let priorityList = document.createElement("p");
         let h1 = document.createElement("h1");
+        let h2 = document.createElement("h1");
         h1.innerText = document.getElementById('dateSelector').value;
+        h2.innerText = document.getElementById('timeSelector').value;
         priorityList.innerText = priorityText;
         span.src = './images/trash-bin.gif';
         li.appendChild(priorityList);
         assignClasses(priorityList);
         li.appendChild(h1);
         li.appendChild(span);
+        li.appendChild(h2);
         listContainer.appendChild(li);
         typeTasks.style.borderColor = 'white';
         gsap.from(li, { opacity: 0, x: -100, duration: 0.3 });
         typeTasks.value = '';
-
         saveData();
         }
 }
@@ -112,3 +114,14 @@ resetTasksButton.addEventListener('click', () => {
         typeTasks.style.borderColor = 'white';
     }});
 });
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/MonkeyTodoList/sw.js').then(registration => {
+        console.log('Service Worker registered with scope:', registration.scope);
+      }).catch(error => {
+        console.log('Service Worker registration failed:', error);
+      });
+    });
+  }
+  
