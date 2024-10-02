@@ -2,7 +2,7 @@
         gsap.from(".container", { opacity: 0, y: -50, duration: 0.5 });
         showList();
     };
-
+    
     let addTasksButton = document.getElementById('addTasksButton');
     let typeTasks = document.getElementById('typeTasks');
     let listContainer = document.getElementById('listContainer');
@@ -14,11 +14,12 @@
     let alarmTime;
     let alarmInterval;
     addTasksButton.addEventListener('click', addTask);
-
-
-
     let li, span, editSpan, priorityList, h1, inputInsideLi;
-
+    
+    new Sortable(listContainer, {
+        animation: 350,
+    })
+    
     let CreateAllElements = () =>{
         li = document.createElement("li");
         span = document.createElement("img");
@@ -44,6 +45,7 @@
             li.appendChild(h1);
             li.appendChild(span);
             li.appendChild(editSpan);
+            li.draggable = true;
             li.classList.toggle('parentNode');
             listContainer.appendChild(li);
 
@@ -62,7 +64,7 @@
     };
 
 
-
+    
     let addEditEvent = (editSpan, inputInsideLi) => {
         let isEditing = false;
         editSpan.addEventListener("click", () => {
@@ -161,6 +163,7 @@
 
 
     function saveData() {
+        
         let InputText = [];
         let input = listContainer.querySelectorAll('textarea')
         input.forEach(input => {InputText.push(input.value);})
@@ -184,6 +187,12 @@
 
         const listItems = document.querySelectorAll("#listContainer li");
         listItems.forEach(item => {
+            let editSpan = item.querySelector('.editSpan');
+            let inputInsideLi = item.querySelector('textarea');
+            
+            console.log(editSpan, inputInsideLi);
+
+            addEditEvent(editSpan, inputInsideLi)
             gsap.from(item, { opacity: 0, x: -100, duration: 0.3 });
             gsap.to(item, { opacity: 1, x: 0 });
         });
