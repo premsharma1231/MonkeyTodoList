@@ -13,8 +13,10 @@ let dateSelector = document.getElementById('dateSelector');
 let priorityText = '';
 let alarmTime;
 let alarmInterval;
+addTasksButton.addEventListener('click', addTask);
 
-// Let creating elements to use globally;
+
+
 let li, span, editSpan, priorityList, h1, inputInsideLi;
 
 let CreateAllElements = () =>{
@@ -23,11 +25,12 @@ let CreateAllElements = () =>{
     editSpan = document.createElement("img");
     priorityList = document.createElement("p");
     h1 = document.createElement("h1");
-    inputInsideLi = document.createElement('input');
+    inputInsideLi = document.createElement('textarea');
 
         span.src = './images/trash-bin.gif';
         span.classList.add('TrashImg');
-        editSpan.src = './images/Edit-Icon.png';
+        inputInsideLi.classList.add('TextArea');
+        editSpan.src = './images/edit (1).png';
         editSpan.classList.add('editSpan');
         inputInsideLi.classList.add('inputNewLogin');
         
@@ -46,15 +49,49 @@ let CreateAllElements = () =>{
         typeTasks.style.borderColor = 'white';
         gsap.from(li, { opacity: 0, x: -100, duration: 0.3 });
         typeTasks.value = '';
-
         saveData();
 
 
+    
+        inputInsideLi.addEventListener("input", () => {
+            autoResize(inputInsideLi);
+        });
+        
         return [li, span, editSpan, priorityList, h1, inputInsideLi];
 };
 
-// Adding a task
-addTasksButton.addEventListener('click', addTask);
+
+
+const addEditEvent = (editSpan, inputInsideLi) => {
+    let isEditing = false;
+
+    editSpan.addEventListener("click", () => {
+        if (isEditing) {
+            inputInsideLi.readOnly = true;
+            inputInsideLi.classList.remove('saveButton');
+            editSpan.src = './images/edit (1).png';
+            saveData();
+        } else {
+            inputInsideLi.readOnly = false;
+            inputInsideLi.focus();
+            inputInsideLi.style.border = 'none';
+            inputInsideLi.classList.add('saveButton');
+            editSpan.src = './images/save-data.png';
+        }
+        isEditing = !isEditing;
+    });
+};
+
+
+
+
+let autoResize = (textarea) => {
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`; 
+}
+
+
+
 
 let priority = (priority) => {
     if (priority === 'high') {
@@ -79,7 +116,7 @@ function addTask() {
         errorMessage.style.color = 'red';
     } else {
         CreateAllElements();
-        setAlarm(); // Set alarm for the added task
+        setAlarm();
         console.log('Alarm Set Successfully');
     }
 }
@@ -87,15 +124,16 @@ function addTask() {
 
 let assignClasses = (priorityList) => {
     if (priorityText === 'High Priority') {
-        priorityList.classList.add('highPriorityClass'); // Use add instead of toggle
+        priorityList.classList.add('highPriorityClass');
     } else if (priorityText === 'Medium Priority') {
-        priorityList.classList.add('mediumPriorityClass'); // Use add instead of toggle
+        priorityList.classList.add('mediumPriorityClass');
     } else if (priorityText === 'Low Priority') {
-        priorityList.classList.add('lowPriorityClass'); // Use add instead of toggle
+        priorityList.classList.add('lowPriorityClass');
     }
 }
 
-// Event delegation for the listContainer
+
+
 listContainer.addEventListener('click', function (e) {
     if (e.target.tagName === 'LI') {
         e.target.classList.toggle("checked");
@@ -103,31 +141,51 @@ listContainer.addEventListener('click', function (e) {
     } else if (e.target.classList.contains("TrashImg")) {
         e.target.parentElement.remove();
         saveData();
-    } else if (e.target.classList.contains("editSpan")) {
-        const listItem = e.target.parentElement;
-        
     }
 });
 
-// Mouseover and mouseout events for scaling
+
+
+
+
 listContainer.addEventListener("mouseover", function (e) {
     if (e.target.tagName === "LI") {
         gsap.to(e.target, { scale: 1.05, duration: 0.2 });
     }
 });
-
 listContainer.addEventListener("mouseout", function (e) {
     if (e.target.tagName === "LI") {
         gsap.to(e.target, { scale: 1, duration: 0.2 });
     }
 });
 
+
+
+
 function saveData() {
+    let InputText = [];
+
+    let input = listContainer.querySelectorAll('textarea')
+    input.forEach(input => {InputText.push(input.value);})
     localStorage.setItem("data", listContainer.innerHTML);
+    localStorage.setItem("inputData", JSON.stringify(InputText));
 }
+
+
 
 function showList() {
     listContainer.innerHTML = localStorage.getItem("data");
+       const savedInputValues = JSON.parse(localStorage.getItem("inputData"));
+
+       if (savedInputValues) {
+           const inputs = document.querySelectorAll("#listContainer textarea");
+   
+           inputs.forEach((input, index) => {
+               if (savedInputValues[index]) {
+                   input.value = savedInputValues[index];
+               }
+           });
+       }
     const listItems = document.querySelectorAll("#listContainer li");
     listItems.forEach(item => {
         gsap.from(item, { opacity: 0, x: -100, duration: 0.3 });
@@ -135,7 +193,9 @@ function showList() {
     });
 }
 
-// Reset all tasks
+
+
+
 resetTasksButton.addEventListener('click', () => {
     gsap.to("#listContainer li", { opacity: 0, y: -20, duration: 0.5, stagger: 0.1, onComplete: () => {
         listContainer.innerHTML = "";
@@ -144,7 +204,9 @@ resetTasksButton.addEventListener('click', () => {
     }});
 });
 
-// Set alarm
+
+
+
 function setAlarm() {
     const input = document.getElementById('dateSelector').value;
     if (input) {
@@ -161,7 +223,10 @@ function setAlarm() {
     }
 }
 
-// Check alarm
+
+
+
+
 function checkAlarm() {
     const now = new Date().getTime();
     if (now >= alarmTime) {
@@ -170,7 +235,9 @@ function checkAlarm() {
     }
 }
 
-// Trigger alarm notification
+
+
+
 function triggerAlarm() {
     if (Notification.permission === "granted") {
         new Notification("Alarm!", {
@@ -189,7 +256,9 @@ function triggerAlarm() {
     }
 }
 
-// Request notification permission
+
+
+
 let requestNotificationPermission = () => {
     if (Notification.permission === 'default') {
         Notification.requestPermission();

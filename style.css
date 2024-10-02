@@ -102,7 +102,7 @@ ul li{
     width: 925px;
     list-style: none;
     position: relative;
-    padding: 10px 00px 10px 50px;
+    padding: 10px 00px 10px 70px;
     user-select: none;
     cursor: pointer;
     border-bottom: 2px solid grey;
@@ -181,6 +181,13 @@ ul li .TrashImg:hover{
     height: 38px;
     z-index: 10;
     padding-left: 20px;
+}
+
+.TextArea{
+    width: 400px;
+    height: 29px;
+    resize: none;
+    border: none;
 }
 
 .saveAfterEdit{
@@ -296,15 +303,15 @@ ul .checked::before{
 }   
 
 .high-priority:hover{
-    background-color: rgb(192, 55, 21);
-    color: white;
-}
-.medium-priority:hover{
     background-color: rgb(49, 102, 36);
     color: white;
 }
-.low-priority:hover{
+.medium-priority:hover{
     background-color: rgb(23, 128, 146);
+    color: white;
+}
+.low-priority:hover{
+    background-color: rgb(192, 55, 21);
     color: white;
 }
 .dropdown-menu{
@@ -328,18 +335,18 @@ ul li h1{
     margin: 0px;
     padding: 0px;
     padding: 0px 5px;
-    margin-right: 30px;
+    margin-right: 100px;
 }
 
 .highPriorityClass{
-    background-color: green;
+    background-color: rgb(49, 102, 36);
     color: white;
 }
 .mediumPriorityClass{
-    background-color: red;
+    background-color: rgb(23, 128, 146);
     color: white;
 }
 .lowPriorityClass{
-    background-color: yellow;
+    background-color: rgb(192, 55, 21);
     color: black;
 }
