@@ -5,8 +5,8 @@
     
     let addTasksButton = document.getElementById('addTasksButton');
     let typeTasks = document.getElementById('typeTasks');
+    let typeTasks2 = document.getElementById('typeTasks2');
     let listContainer = document.getElementById('listContainer');
-    let resetTasksButton = document.getElementById('resetTasksButton');
     let errorMessage = document.getElementById('errorMessage');
     let SelectPriorityText = document.getElementById('SelectPriorityText');
     let dateSelector = document.getElementById('dateSelector');
@@ -14,56 +14,61 @@
     let alarmTime;
     let alarmInterval;
     addTasksButton.addEventListener('click', addTask);
-    let li, span, editSpan, priorityList, h1, inputInsideLi;
+    let li, span, editSpan, priorityList, h1, inputInsideLi, inputInsideLi2;
     
     new Sortable(listContainer, {
         animation: 400,
+        onUpdate: function() {
+            saveData();
+        }
     });
 
     let CreateAllElements = () =>{
         li = document.createElement("li");
+        inputInsideLi = document.createElement('textarea');
+        inputInsideLi2 = document.createElement('textarea');
         span = document.createElement("img");
         editSpan = document.createElement("img");
         priorityList = document.createElement("p");
         h1 = document.createElement("h1");
-        inputInsideLi = document.createElement('textarea');
 
             span.src = './images/trash-bin.gif';
             span.classList.add('TrashImg');
             inputInsideLi.classList.add('TextArea');
+            inputInsideLi2.classList.add('TextArea2');
             editSpan.src = './images/edit (1).png';
             editSpan.classList.add('editSpan');
-            inputInsideLi.classList.add('inputNewLogin');
             
             inputInsideLi.readOnly = true;
+            inputInsideLi2.readOnly = true;
             inputInsideLi.value = typeTasks.value;
+            inputInsideLi2.value = typeTasks2.value;
             h1.innerText = dateSelector.value;
             priorityList.innerText = priorityText;
             li.appendChild(inputInsideLi);
+            li.appendChild(inputInsideLi2);
             li.appendChild(priorityList);
             assignClasses(priorityList);
             li.appendChild(h1);
             li.appendChild(span);
             li.appendChild(editSpan);
-            li.draggable = true;
             li.classList.toggle('parentNode');
             listContainer.appendChild(li);
-
+            
             typeTasks.style.borderColor = 'white';
             gsap.from(li, { opacity: 0, x: -100, duration: 0.3 });
             typeTasks.value = '';
             saveData();
-
-
-            inputInsideLi.addEventListener("input", () => {
-                autoResize(inputInsideLi);
-            });
+            
+            
+            // inputInsideLi.style.height = inputInsideLi.scrollHeight+'px';
+            // inputInsideLi.addEventListener("input", () => {
+            //     autoResize(inputInsideLi);
+            // });
             
             addEditEvent(editSpan, inputInsideLi);
             return [li, span, editSpan, priorityList, h1, inputInsideLi];
     };
-
-
     
     let addEditEvent = (editSpan, inputInsideLi) => {
         let isEditing = false;
@@ -76,7 +81,7 @@
             } else {
                 inputInsideLi.readOnly = false;
                 inputInsideLi.focus();
-                inputInsideLi.style.border = 'none';
+                // inputInsideLi.style.border = 'none';
                 inputInsideLi.classList.add('saveButton');
                 editSpan.src = './images/save-data.png';
             }
@@ -84,15 +89,26 @@
         });
     };
 
-
-
-
     let autoResize = (textarea) => {
         textarea.style.height = `${textarea.scrollHeight}px`;
     }
 
-
-
+    listContainer.addEventListener('mouseover', (e) => {
+        if (e.target.tagName === 'LI') {
+            gsap.to(e.target, {
+                scale: 1.01,
+                duration: 0.3,
+            });
+        }
+    });
+    listContainer.addEventListener('mouseout', (e) => {
+        if (e.target.tagName === 'LI') {
+            gsap.to(e.target, {
+                scale: 1,
+                duration: 0.3,
+            });
+        }
+    });
 
     let priority = (priority) => {
         if (priority === 'high') {
@@ -117,7 +133,6 @@
             errorMessage.style.color = 'red';
         } else {
             CreateAllElements();
-            // setAlarm();
             console.log('Alarm Set Successfully');
         }
     }
@@ -146,7 +161,6 @@
 
 
     function saveData() {
-        
         let InputText = [];
         let input = listContainer.querySelectorAll('textarea')
         input.forEach(input => {InputText.push(input.value);})
@@ -184,15 +198,29 @@
 
 
 
-    resetTasksButton.addEventListener('click', () => {
-        gsap.to("#listContainer li", { opacity: 0, y: -20, duration: 0.5, stagger: 0.1, onComplete: () => {
-            listContainer.innerHTML = "";
-            localStorage.setItem("data", "");
-            localStorage.setItem("inputData", '');
-            typeTasks.style.borderColor = 'white';
-        }});
-    });
+    let deletingData = () =>{
+        Swal.fire({
+            title: "Are you sure, this will delete all tasks??",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire("Deleted", "", "success");
+                gsap.to("#listContainer li", { opacity: 0, y: -20, duration: 0.5, stagger: 0.1, onComplete: () => {
+                    listContainer.innerHTML = "";
+                    localStorage.setItem("data", "");
+                    localStorage.setItem("inputData", '');
+                    typeTasks.style.borderColor = 'white';
+                }});
+            }
+        });
+    }
+      
 
+
+
+
+        
 
 
 
