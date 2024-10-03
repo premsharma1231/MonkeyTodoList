@@ -113,6 +113,11 @@ ul li{
     word-wrap: break-word; /* Enables text to wrap within the li */
     white-space: pre-wrap;
     text-align: left;
+    transition: transform 0.1s ease-in-out;
+}
+
+li:hover{
+    transform: scale(1.05, 1.1);
 }
 
 ul{

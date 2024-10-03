@@ -17,9 +17,9 @@
     let li, span, editSpan, priorityList, h1, inputInsideLi;
     
     new Sortable(listContainer, {
-        animation: 350,
-    })
-    
+        animation: 400,
+    });
+
     let CreateAllElements = () =>{
         li = document.createElement("li");
         span = document.createElement("img");
@@ -143,23 +143,6 @@
         } else if (e.target.classList.contains("editSpan")) {
         }
     });
-
-
-
-
-
-    listContainer.addEventListener("mouseover", function (e) {
-        if (e.target.tagName === "LI") {
-            gsap.to(e.target, { scale: 1.05, duration: 0.2 });
-        }
-    });
-    listContainer.addEventListener("mouseout", function (e) {
-        if (e.target.tagName === "LI") {
-            gsap.to(e.target, { scale: 1, duration: 0.2 });
-        }
-    });
-
-
 
 
     function saveData() {
