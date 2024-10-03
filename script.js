@@ -60,29 +60,23 @@
             typeTasks.value = '';
             saveData();
             
-            
-            // inputInsideLi.style.height = inputInsideLi.scrollHeight+'px';
-            // inputInsideLi.addEventListener("input", () => {
-            //     autoResize(inputInsideLi);
-            // });
-            
-            addEditEvent(editSpan, inputInsideLi);
+            addEditEvent(editSpan, inputInsideLi, inputInsideLi2);
             return [li, span, editSpan, priorityList, h1, inputInsideLi];
     };
     
-    let addEditEvent = (editSpan, inputInsideLi) => {
+    let addEditEvent = (editSpan, inputInsideLi, inputInsideLi2) => {
         let isEditing = false;
         editSpan.addEventListener("click", () => {
             if (isEditing) {
                 inputInsideLi.readOnly = true;
-                inputInsideLi.classList.remove('saveButton');
+                inputInsideLi2.readOnly = true;
                 editSpan.src = './images/edit (1).png';
                 saveData();
             } else {
                 inputInsideLi.readOnly = false;
                 inputInsideLi.focus();
-                // inputInsideLi.style.border = 'none';
-                inputInsideLi.classList.add('saveButton');
+                inputInsideLi2.readOnly = false;
+                inputInsideLi2.focus();
                 editSpan.src = './images/save-data.png';
             }
             isEditing = !isEditing;
