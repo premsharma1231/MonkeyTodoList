@@ -19,14 +19,14 @@
     new Sortable(listContainer, {
         animation: 400,
         onUpdate: function() {
-            saveData();
+            // saveData();
         }
     });
 
     let CreateAllElements = () =>{
         li = document.createElement("li");
-        inputInsideLi = document.createElement('textarea');
-        inputInsideLi2 = document.createElement('textarea');
+        inputInsideLi = document.createElement('span');
+        inputInsideLi2 = document.createElement('span');
         span = document.createElement("img");
         editSpan = document.createElement("img");
         priorityList = document.createElement("p");
@@ -34,15 +34,17 @@
 
             span.src = './images/trash-bin.gif';
             span.classList.add('TrashImg');
-            inputInsideLi.classList.add('TextArea');
-            inputInsideLi2.classList.add('TextArea2');
+            inputInsideLi.classList.add('card-title');
+            inputInsideLi2.classList.add('card-text');
             editSpan.src = './images/edit (1).png';
             editSpan.classList.add('editSpan');
             
-            inputInsideLi.readOnly = true;
-            inputInsideLi2.readOnly = true;
-            inputInsideLi.value = typeTasks.value;
-            inputInsideLi2.value = typeTasks2.value;
+            inputInsideLi.role = "input";
+            inputInsideLi2.role = "input";
+            inputInsideLi.contentEditable = false;
+            inputInsideLi2.contentEditable = false;
+            inputInsideLi.innerText = typeTasks.value ? typeTasks.value : "Edit Text";
+            inputInsideLi2.innerText = typeTasks2.value ? typeTasks2.value : "Add description!";
             h1.innerText = dateSelector.value;
             priorityList.innerText = priorityText;
             li.appendChild(inputInsideLi);
@@ -52,7 +54,9 @@
             li.appendChild(h1);
             li.appendChild(span);
             li.appendChild(editSpan);
-            li.classList.toggle('parentNode');
+            li.classList.add('card');
+            li.classList.add('bg-secondary');
+            li.classList.add('parentNode');
             listContainer.appendChild(li);
             
             typeTasks.style.borderColor = 'white';
@@ -68,24 +72,18 @@
         let isEditing = false;
         editSpan.addEventListener("click", () => {
             if (isEditing) {
-                inputInsideLi.readOnly = true;
-                inputInsideLi2.readOnly = true;
+                inputInsideLi.contentEditable = false;
+                inputInsideLi2.contentEditable = false;
                 editSpan.src = './images/edit (1).png';
                 saveData();
             } else {
-                inputInsideLi.readOnly = false;
-                inputInsideLi.focus();
-                inputInsideLi2.readOnly = false;
-                inputInsideLi2.focus();
+                inputInsideLi.contentEditable = true;
+                inputInsideLi2.contentEditable = true;
                 editSpan.src = './images/save-data.png';
             }
             isEditing = !isEditing;
         });
     };
-
-    let autoResize = (textarea) => {
-        textarea.style.height = `${textarea.scrollHeight}px`;
-    }
 
     listContainer.addEventListener('mouseover', (e) => {
         if (e.target.tagName === 'LI') {
@@ -119,16 +117,7 @@
     priority();
 
     function addTask() {
-        if (typeTasks.value.trim() === '') {
-            gsap.fromTo(errorMessage, { x: -10 }, { x: 10, repeat: 5, yoyo: true, duration: 0.1 });
-            typeTasks.style.borderColor = '#890606';
-            errorMessage.style.display = 'flex';
-            setTimeout(() => (errorMessage.style.display = "none"), 2000);
-            errorMessage.style.color = 'red';
-        } else {
             CreateAllElements();
-            console.log('Alarm Set Successfully');
-        }
     }
 
 
@@ -156,7 +145,7 @@
 
     function saveData() {
         let InputText = [];
-        let input = listContainer.querySelectorAll('textarea')
+        let input = listContainer.querySelectorAll('span')
         input.forEach(input => {InputText.push(input.value);})
         localStorage.setItem("data", listContainer.innerHTML);
         localStorage.setItem("inputData", JSON.stringify(InputText));
