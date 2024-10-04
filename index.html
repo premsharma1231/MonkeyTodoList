@@ -14,6 +14,7 @@
     <link rel="stylesheet" media="screen and (min-width: 500px) and (max-width: 769px)" href="miniTablet.css">
     <link rel="stylesheet" media="screen and (min-width: 300px) and (max-width: 499px)" href="phone.css">
     <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     <div class="container">
@@ -22,11 +23,17 @@
         </div>
         <div class="typingTasks">
             <div id="forRelative">
-                <input type="text" aria-label placeholder="Task Title" id="typeTasks">
-                <input type="text" aria-label placeholder="Task Description" id="typeTasks2">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
+                  <input type="text" class="form-control" id="typeTasks">
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+                  <input type="text" class="form-control" id="typeTasks2">
+                </div>
                 <p id="errorMessage"><img src="./images/crosspng.png" id="crossPng" alt="">Please add task.</p>
             </div>
-            <input type="datetime-local" aria-label id="dateSelector" placeholder="Date">
+            <input type="text" id="datepicker" placeholder="Select Date">
             <div class="dropdown" id="SelectPriority">
                 <button class="btn btn-secondary dropdown-toggle" id="SelectPriorityText" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Select Priority
@@ -38,7 +45,7 @@
                 </ul>
               </div>
               
-            <button id="addTasksButton" class="btn">+</button>
+            <button id="addTasksButton" onclick="addTask()" class="btn">+</button>
 
                 <button type="button" class="btn btn-primary" onclick="deletingData()" id="resetTasksButton">
                     Reset
@@ -50,6 +57,7 @@
     </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.3/Sortable.min.js" integrity="sha512-8AwTn2Tax8NWI+SqsYAXiKT8jO11WUBzTEWRoilYgr5GWnF4fNqBRD+hCr4JRSA1eZ/qwbI+FPsM3X/PQeHgpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

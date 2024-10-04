@@ -3,23 +3,27 @@
         showList();
     };
     
+    flatpickr("#datepicker", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+      });
+
     let addTasksButton = document.getElementById('addTasksButton');
     let typeTasks = document.getElementById('typeTasks');
     let typeTasks2 = document.getElementById('typeTasks2');
     let listContainer = document.getElementById('listContainer');
     let errorMessage = document.getElementById('errorMessage');
     let SelectPriorityText = document.getElementById('SelectPriorityText');
-    let dateSelector = document.getElementById('dateSelector');
+    let datepicker = document.getElementById('datepicker');
     let priorityText = '';
     let alarmTime;
     let alarmInterval;
-    addTasksButton.addEventListener('click', addTask);
     let li, span, editSpan, priorityList, h1, inputInsideLi, inputInsideLi2;
     
     new Sortable(listContainer, {
         animation: 400,
         onUpdate: function() {
-            // saveData();
+            saveData();
         }
     });
 
@@ -45,7 +49,7 @@
             inputInsideLi2.contentEditable = false;
             inputInsideLi.innerText = typeTasks.value ? typeTasks.value : "Edit Text";
             inputInsideLi2.innerText = typeTasks2.value ? typeTasks2.value : "Add description!";
-            h1.innerText = dateSelector.value;
+            h1.innerText = datepicker.value;
             priorityList.innerText = priorityText;
             li.appendChild(inputInsideLi);
             li.appendChild(inputInsideLi2);
@@ -56,7 +60,6 @@
             li.appendChild(editSpan);
             li.classList.add('card');
             li.classList.add('bg-secondary');
-            li.classList.add('parentNode');
             listContainer.appendChild(li);
             
             typeTasks.style.borderColor = 'white';
@@ -170,7 +173,6 @@
             let editSpan = item.querySelector('.editSpan');
             let inputInsideLi = item.querySelector('textarea');
             
-            console.log(editSpan, inputInsideLi);
 
             addEditEvent(editSpan, inputInsideLi)
             gsap.from(item, { opacity: 0, x: -100, duration: 0.3 });
