@@ -22,19 +22,15 @@
             <span class="headOne">What To Do - Let's Plan a Day</span> <img src="./images/icon.png" alt="">
         </div>
         <div class="typingTasks">
-            <div id="forRelative">
-                <div class="input-group mb-3">
-                  <span class="input-group-text" id="inputGroup-sizing-default">Title</span>
+                <div class="input-group">
+                  <span class="input-group-text" id="">Title</span>
                   <input type="text" class="form-control" id="typeTasks">
-                </div>
-                <div class="input-group mb-3">
-                  <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+                  <span class="input-group-text" id="">Description</span>
                   <input type="text" class="form-control" id="typeTasks2">
                 </div>
-                <p id="errorMessage"><img src="./images/crosspng.png" id="crossPng" alt="">Please add task.</p>
-            </div>
-            <input type="text" id="datepicker" placeholder="Select Date">
-            <div class="dropdown" id="SelectPriority">
+            <div class="mostImpDiv">
+              <input type="text" id="datepicker" placeholder="Select Date">
+              <div class="dropdown" id="SelectPriority">
                 <button class="btn btn-secondary dropdown-toggle" id="SelectPriorityText" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Select Priority
                 </button>
@@ -44,17 +40,14 @@
                   <p class="dropdown-item low-priority" onclick="priority('low')" href="">Low Priority</p>
                 </ul>
               </div>
-              
-            <button id="addTasksButton" onclick="addTask()" class="btn">+</button>
-
-                <button type="button" class="btn btn-primary" onclick="deletingData()" id="resetTasksButton">
-                    Reset
-                  </button>
+              <button id="addTasksButton" onclick="addTask()" class="btn">+</button>
+              <button type="button" class="btn btn-primary" onclick="deletingData()" id="resetTasksButton">Reset</button>
+            </div>
         </div>
         <div class="taskListing">
-            <ul class="liOne" id="listContainer">
-            </ul>
-    </div>
+          <ul class="liOne" id="listContainer">
+          </ul>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

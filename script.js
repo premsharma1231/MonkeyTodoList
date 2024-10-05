@@ -36,7 +36,7 @@
         priorityList = document.createElement("p");
         h1 = document.createElement("h1");
 
-            span.src = './images/trash-bin.gif';
+            span.src = './images/trash-bin.png';
             span.classList.add('TrashImg');
             inputInsideLi.classList.add('card-title');
             inputInsideLi2.classList.add('card-text');
@@ -59,12 +59,12 @@
             li.appendChild(span);
             li.appendChild(editSpan);
             li.classList.add('card');
-            li.classList.add('bg-secondary');
             listContainer.appendChild(li);
             
             typeTasks.style.borderColor = 'white';
             gsap.from(li, { opacity: 0, x: -100, duration: 0.3 });
             typeTasks.value = '';
+            typeTasks2.value = '';
             saveData();
             
             addEditEvent(editSpan, inputInsideLi, inputInsideLi2);
@@ -89,21 +89,25 @@
     };
 
     listContainer.addEventListener('mouseover', (e) => {
-        if (e.target.tagName === 'LI') {
-            gsap.to(e.target, {
+        const liElement = e.target.closest('li');
+        if (liElement) {
+            gsap.to(liElement, {
                 scale: 1.01,
                 duration: 0.3,
             });
         }
     });
+
     listContainer.addEventListener('mouseout', (e) => {
-        if (e.target.tagName === 'LI') {
-            gsap.to(e.target, {
+        const liElement = e.target.closest('li');
+        if (liElement) {
+            gsap.to(liElement, {
                 scale: 1,
                 duration: 0.3,
             });
         }
     });
+
 
     let priority = (priority) => {
         if (priority === 'high') {
@@ -142,6 +146,7 @@
             e.target.parentElement.remove();
             saveData();
         } else if (e.target.classList.contains("editSpan")) {
+            gsap.from(e.target, { opacity: 0, x: 2, duration: 0.1 });
         }
     });
 
@@ -172,8 +177,6 @@
         listItems.forEach(item => {
             let editSpan = item.querySelector('.editSpan');
             let inputInsideLi = item.querySelector('textarea');
-            
-
             addEditEvent(editSpan, inputInsideLi)
             gsap.from(item, { opacity: 0, x: -100, duration: 0.3 });
             gsap.to(item, { opacity: 1, x: 0 });
