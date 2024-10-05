@@ -54,7 +54,7 @@ body{
 
 
 .headOne{
-    font-size: 1.7rem;
+    font-size: 1.2rem;
     font-weight: 500;
     margin: 0px 0px 0px 0px;
     padding: 0;
@@ -62,7 +62,7 @@ body{
 }
 
 .heading img{
-    width: 4vw;
+    width: 14vw;
 }
 
 .mostImpDiv{
@@ -73,8 +73,9 @@ body{
 
 .input-group{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: left;
     margin: 10px 0px 10px 0px;
 }
 
@@ -84,7 +85,7 @@ body{
     background-color: grey; 
     cursor: pointer;
     color: black;
-    width: 25vw;
+    width: 250px;
 }
 
 #typeTasks2{
@@ -93,22 +94,26 @@ body{
     background-color: grey; 
     cursor: pointer;
     color: black;
-    width: 35rem;
+    width: 250px;
 }
 
+.input-group-text{
+    width: 250px;
+}
+/* 
 #typeTasks2::placeholder{
     color: black;
 }
 
 #typeTasks::placeholder{
     color: black;
-}
+} */
 
 #addTasksButton{
     height: 40px;
     width: 426px;
     font-size: 1.5rem;
-    background-color: #553939;
+    background-color: gray;
     color: white;
     border: none;
     cursor: pointer;
@@ -116,8 +121,8 @@ body{
 }
 
 #addTasksButton:hover{
-    color: black;
-    background-color: grey;
+    color: white;
+    background-color: #553939;
     transition: all 0.5s;
 }
 
@@ -223,7 +228,7 @@ ul .checked::before{
     z-index: 5;
     background-image: url(./images/greenchecked.png);
     background-size: cover;
-    background-position: center center;   
+    background-position: center center;
 }
 
 #resetTasksButton{
@@ -231,7 +236,7 @@ ul .checked::before{
     width: 300px;
     margin-left: 5px;
     font-size: 1rem;
-    background-color: #553939;
+    background-color: gray;
     color: white;
     border: none;
     cursor: pointer;
@@ -239,8 +244,8 @@ ul .checked::before{
 }
 
 #resetTasksButton:hover{
-    color: black;
-    background-color: gray;
+    color: white;
+    background-color: #553939;
     transition: all 0.5s;   
 }
 
@@ -337,40 +342,46 @@ ul li h1{
 }
 
 .highPriorityClass{
-    background-color: white;
+    background-color: rgb(187, 187, 187);
     color: black;
     font-weight: 500;
-    height: 20px;
+    height: 40px;
     position: absolute;
     bottom: 0px;
     left: 66px;
     width: 60%;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
+    padding-top: 10px;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
     border-top: 2px solid white;
 }
+
 .mediumPriorityClass{
-    background-color: #553939;
+    background-color: rgb(187, 187, 187);
     color: black;
     font-weight: 500;
+    height: 40px;
     position: absolute;
     bottom: 0px;
     left: 66px;
     width: 60%;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
+    padding-top: 10px;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
     border-top: 2px solid white;
 }
 .lowPriorityClass{
-    background-color: #553939;
+    background-color: rgb(187, 187, 187);
     color: black;
     font-weight: 500;
+    height: 40px;
     position: absolute;
     bottom: 0px;
     left: 66px;
     width: 60%;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
+    padding-top: 10px;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
     border-top: 2px solid white;
 }
 
@@ -381,6 +392,10 @@ ul li h1{
     width: 300px;
     font-size: x-large;
     color: white;
+}
+
+.card-text{
+    padding-bottom: 50px;
 }
 
 .card{

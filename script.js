@@ -59,8 +59,9 @@
             li.appendChild(span);
             li.appendChild(editSpan);
             li.classList.add('card');
-            listContainer.appendChild(li);
             
+
+            listContainer.insertAdjacentElement('afterbegin', li);
             typeTasks.style.borderColor = 'white';
             gsap.from(li, { opacity: 0, x: -100, duration: 0.3 });
             typeTasks.value = '';
@@ -78,11 +79,15 @@
                 inputInsideLi.contentEditable = false;
                 inputInsideLi2.contentEditable = false;
                 editSpan.src = './images/edit (1).png';
+                inputInsideLi.style.border = 'none';
+                inputInsideLi2.style.border = 'none';
                 saveData();
             } else {
                 inputInsideLi.contentEditable = true;
                 inputInsideLi2.contentEditable = true;
                 editSpan.src = './images/save-data.png';
+                inputInsideLi.style.border = '2px solid black';
+                inputInsideLi2.style.border = '2px solid black';
             }
             isEditing = !isEditing;
         });
@@ -165,7 +170,7 @@
         listContainer.innerHTML = localStorage.getItem("data");
         const savedInputValues = JSON.parse(localStorage.getItem("inputData"));
         if (savedInputValues) {
-            const inputs = document.querySelectorAll("#listContainer textarea");
+            const inputs = document.querySelectorAll("#listContainer span");
             inputs.forEach((input, index) => {
                 if (savedInputValues[index]) {
                     input.value = savedInputValues[index];
@@ -176,8 +181,9 @@
         const listItems = document.querySelectorAll("#listContainer li");
         listItems.forEach(item => {
             let editSpan = item.querySelector('.editSpan');
-            let inputInsideLi = item.querySelector('textarea');
-            addEditEvent(editSpan, inputInsideLi)
+            let inputInsideLi = item.querySelector('span:first-child');
+            let inputInsideLi2 = item.querySelector('span:nth-of-type(2)');
+            addEditEvent(editSpan, inputInsideLi, inputInsideLi2)
             gsap.from(item, { opacity: 0, x: -100, duration: 0.3 });
             gsap.to(item, { opacity: 1, x: 0 });
         });
