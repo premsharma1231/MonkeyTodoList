@@ -61,11 +61,12 @@
                   Filter View
                 </button>
                 <ul class="dropdown-menu">
+                  <p class="dropdown-item low-priority" onclick="filterTasks('all')">No Filter</p>
                   <p class="dropdown-item high-priority" onclick="filterTasks('completed')">Completed Tasks</p>
                   <p class="dropdown-item medium-priority" onclick="filterTasks('pending')">Pending Tasks</p>
                   <p class="dropdown-item low-priority" onclick="filterTasks('high')">High Priority</p>
-                  <p class="dropdown-item low-priority" onclick="filterTasks('medium')">Medium Priority</p>
-                  <p class="dropdown-item low-priority" onclick="filterTasks('low')">Low Priority</p>
+                  <p class="dropdown-item high-priority" onclick="filterTasks('medium')">Medium Priority</p>
+                  <p class="dropdown-item medium-priority" onclick="filterTasks('low')">Low Priority</p>
                 </ul>
               </div>
         </div>

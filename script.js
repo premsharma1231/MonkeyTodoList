@@ -45,8 +45,6 @@
         li = document.createElement("li");
         priorityList = document.createElement("p");
         h1 = document.createElement("h1");
-
-        
         inputInsideLi.role = "input";
         inputInsideLi2.role = "input";
 
@@ -55,18 +53,6 @@
             inputInsideLi2.innerText = typeTasks2.value ? typeTasks2.value : "Add description!";
             h1.innerText = datepicker.value;
             updatePriorityClass(priorityList, priorityText)
-
-            let task = {
-                title: typeTasks.value ? typeTasks.value : "Edit Text",
-                description: typeTasks2.value ? typeTasks2.value : "Add description!",
-                date: datepicker.value ? datepicker.value : "Add Date",
-                priority: priorityText,
-                status: 'pending'
-            };
-
-            console.log(task);
-            tasks.push(task);  // Add the new task to the tasks array
-            displayTasks(tasks);
 
             // Appending Child
             li.append(inputInsideLi, inputInsideLi2, priorityList, h1, span, editSpan);
@@ -202,40 +188,126 @@
     });
 
     function saveData() {
-        let InputText = [];
-        let input = listContainer.querySelectorAll('span')
-        let priorityText = listContainer.querySelectorAll('p');
-        let h1 = listContainer.querySelectorAll('h1');
-        input.forEach(input => {InputText.push(input.value);})
-        priorityText.forEach(priorityText => {InputText.push(priorityText.innerText);})
-        h1.forEach(h1 => {InputText.push(h1.innerText);})
-        localStorage.setItem("data", listContainer.innerHTML);
-        localStorage.setItem("inputData", JSON.stringify(InputText));
+        let tasks = [];
+        const listItems = document.querySelectorAll("#listContainer li");
+        listItems.forEach((item) => {
+            const task = {
+              title: item.querySelector("span:first-child").textContent,
+              description: item.querySelector("span:nth-of-type(2)").textContent,
+              date: item.querySelector("h1").textContent,
+              priority: item.querySelector("p").textContent,
+              status: item.classList.contains("checked") ? "completed" : "pending",
+            };
+            tasks.push(task);
+            console.log(tasks);
+        });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
     }
 
     function showList() {
-        listContainer.innerHTML = localStorage.getItem("data");
-        const savedInputValues = JSON.parse(localStorage.getItem("inputData"));
-        if (savedInputValues) {
-            const inputs = document.querySelectorAll("#listContainer span");
-            inputs.forEach((input, index) => {
-                if (savedInputValues[index]) {
-                    input.value = savedInputValues[index];
-                }
+        const savedTasks = JSON.parse(localStorage.getItem("tasks"));
+        if (savedTasks) {
+            listContainer.innerHTML = "";
+            savedTasks.forEach((task) => {
+            const li = createElement('li', ['card']);
+            const inputInsideLi = createElement('span', ['card-title'], { contentEditable: 'false' });
+            const inputInsideLi2 = createElement('span', ['card-text'], { contentEditable: 'false' });
+            const span = createElement("img", ['TrashImg'], { src: './images/trash-bin.png' });
+            const editSpan = createElement("img", ['editSpan'], { src: './images/edit (1).png' });
+            const priorityList = createElement('p');
+            const h1 = document.createElement("h1");
+            if(priorityList.innerText !== ' ' && priorityList.innerText !== '' && priorityList.innerText !== null){
+                priorityList.classList.add('PriorityClass');
+            }
+            inputInsideLi.textContent = task.title;
+            inputInsideLi2.textContent = task.description;
+            priorityList.textContent = task.priority;
+            h1.textContent = task.date;
+            if (task.status === "completed") {
+                li.classList.add("checked");
+            }
+            li.append(inputInsideLi, inputInsideLi2, priorityList, h1, span, editSpan);
+            listContainer.appendChild(li);
+            addEditEvent(editSpan, inputInsideLi, inputInsideLi2, priorityList, h1);
             });
-        }
+
+  }}
+
+     function filterTasks(filterType) {
+        const tasks = JSON.parse(localStorage.getItem("tasks"));
         const listItems = document.querySelectorAll("#listContainer li");
-        listItems.forEach(item => {
-            let editSpan = item.querySelector('.editSpan');
-            let inputInsideLi = item.querySelector('span:first-child');
-            let inputInsideLi2 = item.querySelector('span:nth-of-type(2)');
-            let priorityList = item.querySelector('p');
-            let h1 = item.querySelector('h1');
-            addEditEvent(editSpan, inputInsideLi, inputInsideLi2, priorityList, h1)
-            gsap.from(item, { opacity: 0, x: -100, duration: 0.3 });
-            gsap.to(item, { opacity: 1, x: 0 });
+      
+        if (filterType === "all") {
+          listItems.forEach((item) => {
+            item.classList.remove('displayNone')
+            item.classList.add('card');
+          });
+        } else if (filterType === "completed") {
+          listItems.forEach((item) => {
+            if (item.classList.contains("checked")) {
+              item.classList.remove('displayNone')
+              item.classList.add('card')
+            } else {
+              item.classList.remove('card')
+              item.classList.add('displayNone')
+            }
         });
-     }
+    } else if (filterType === "pending") {
+        listItems.forEach((item) => {
+            if (!item.classList.contains("checked")) {
+                item.classList.remove('displayNone');
+                item.classList.add('card');
+            } else {
+                item.classList.remove('card');
+                item.classList.add('displayNone');
+            }
+        });
+    } else if (filterType === "high") {
+        listItems.forEach((item) => {
+            const taskPriority = item.querySelector("p").textContent;
+            if (taskPriority === "High Priority") {
+                item.classList.remove('displayNone');
+                item.classList.add('card')
+            } else {
+                item.classList.remove('card');
+                item.classList.add('displayNone');
+            }
+          });
+        } else if (filterType === "medium") {
+          listItems.forEach((item) => {
+            const taskPriority = item.querySelector("p").textContent;
+            if (taskPriority === "Medium Priority") {
+                item.classList.remove('displayNone');
+                item.classList.add('card')
+            } else {
+                item.classList.remove('card');
+                item.classList.add('displayNone');
+            }
+        });
+    } else if (filterType === "low") {
+        listItems.forEach((item) => {
+            const taskPriority = item.querySelector("p").textContent;
+            if (taskPriority === "Low Priority") {
+                item.classList.remove('displayNone');
+                item.classList.add('card')
+            } else {
+                item.classList.remove('card');
+                item.classList.add('displayNone');
+            }
+          });
+        }
+      } 
+
+
+
+
+
+
+
+
+
+
+
 
 
     let deletingData = () =>{
