@@ -1,0 +1,18 @@
+inputInsideLi = createElement('span', ['card-title'], { contentEditable: 'false' });
+inputInsideLi2 = createElement('span', ['card-text'], { contentEditable: 'false' });
+span = createElement("img", ['TrashImg'], { src: './images/trash-bin.png' });
+editSpan = createElement("img", ['editSpan'], { src: './images/edit (1).png' });
+
+        const createElement = (type, classNames = [], attributes = {}) => {
+        const element = document.createElement(type);
+        classNames.forEach(className => element.classList.add(className));
+        Object.keys(attributes).forEach(key => element.setAttribute(key, attributes[key]));
+        return element;
+    };  
+
+
+        // Appending Class
+            inputInsideLi.innerText = taskData.title || "Edit Text";
+            inputInsideLi2.innerText = taskData.description || "Add description!";
+            h1.innerText = taskData.date || '';
+

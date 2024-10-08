@@ -15,8 +15,22 @@
     <link rel="stylesheet" media="screen and (min-width: 300px) and (max-width: 499px)" href="phone.css">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
 </head>
 <body>
+  <nav class="navbar navbar-expand-lg navbar-light h-28">
+    <a class="navbar-brand text-white" href="#">MonkeyTodoList</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link text-white" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Features</a>
+        </li>
+      </div>
+    </div>
+  </nav>
     <div class="container">
         <div class="heading">
             <span class="headOne">What To Do - Let's Plan a Day</span> <img src="./images/icon.png" alt="">
@@ -35,14 +49,25 @@
                   Select Priority
                 </button>
                 <ul class="dropdown-menu">
-                  <p class="dropdown-item high-priority" onclick="priority('high')" href="">High Priority</p>
-                  <p class="dropdown-item medium-priority" onclick="priority('medium')" href="">Medium Priority</p>
-                  <p class="dropdown-item low-priority" onclick="priority('low')" href="">Low Priority</p>
+                  <p class="dropdown-item high-priority" onclick="priority('High Priority')" href="">High Priority</p>
+                  <p class="dropdown-item medium-priority" onclick="priority('Medium Priority')" href="">Medium Priority</p>
+                  <p class="dropdown-item low-priority" onclick="priority('Low Priority')" href="">Low Priority</p>
                 </ul>
               </div>
               <button id="addTasksButton" onclick="addTask()" class="btn">+</button>
               <button type="button" class="btn btn-primary" onclick="deletingData()" id="resetTasksButton">Reset</button>
-            </div>
+              <div class="dropdown" id="FilterView">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Filter View
+                </button>
+                <ul class="dropdown-menu">
+                  <p class="dropdown-item high-priority" onclick="filterTasks('completed')">Completed Tasks</p>
+                  <p class="dropdown-item medium-priority" onclick="filterTasks('pending')">Pending Tasks</p>
+                  <p class="dropdown-item low-priority" onclick="filterTasks('high')">High Priority</p>
+                  <p class="dropdown-item low-priority" onclick="filterTasks('medium')">Medium Priority</p>
+                  <p class="dropdown-item low-priority" onclick="filterTasks('low')">Low Priority</p>
+                </ul>
+              </div>
         </div>
         <div class="taskListing">
           <ul class="liOne" id="listContainer">
