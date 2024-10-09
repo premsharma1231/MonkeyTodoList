@@ -199,7 +199,6 @@
               status: item.classList.contains("checked") ? "completed" : "pending",
             };
             tasks.push(task);
-            console.log(tasks);
         });
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }
@@ -216,9 +215,8 @@
             const editSpan = createElement("img", ['editSpan'], { src: './images/edit (1).png' });
             const priorityList = createElement('p');
             const h1 = document.createElement("h1");
-            if(priorityList.innerText !== ' ' && priorityList.innerText !== '' && priorityList.innerText !== null){
-                priorityList.classList.add('PriorityClass');
-            }
+            updatePriorityClass(priorityList, task.priority);
+
             inputInsideLi.textContent = task.title;
             inputInsideLi2.textContent = task.description;
             priorityList.textContent = task.priority;
@@ -231,11 +229,17 @@
             addEditEvent(editSpan, inputInsideLi, inputInsideLi2, priorityList, h1);
             });
 
+
+            const savedFilter = localStorage.getItem('filter');
+            if (savedFilter) {
+              filterTasks(savedFilter);
+            }
   }}
 
      function filterTasks(filterType) {
         const tasks = JSON.parse(localStorage.getItem("tasks"));
         const listItems = document.querySelectorAll("#listContainer li");
+        localStorage.setItem('filter', filterType);
       
         if (filterType === "all") {
           listItems.forEach((item) => {
@@ -296,23 +300,16 @@
             }
           });
         }
-      } 
+      }
 
-
-
-
-
-
-
-
-
+   
 
 
 
 
     let deletingData = () =>{
         Swal.fire({
-            title: "Are you sure, this will delete all tasks??",
+            title: "Are you sure, i will delete all tasks??",
             showCancelButton: true,
             confirmButtonText: "Yes",
         }).then((result) => {
@@ -320,8 +317,8 @@
                 Swal.fire("Deleted", "", "success");
                 gsap.to("#listContainer li", { opacity: 0, y: -20, duration: 0.5, stagger: 0.1, onComplete: () => {
                     listContainer.innerHTML = "";
-                    localStorage.setItem("data", "");
-                    localStorage.setItem("inputData", '');
+                    localStorage.setItem("tasks", '');
+                    localStorage.setItem('filter', '');
                     typeTasks.style.borderColor = 'white';
                 }});
             }

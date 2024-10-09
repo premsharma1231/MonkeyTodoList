@@ -117,11 +117,10 @@ li:hover{
 #listContainer{
     display: grid;
     grid-template-columns: repeat(3, 340px);
+    justify-content: center; 
+    align-items: start;
     gap: 10px;
     margin: 20px 0px 40px 0px;
-    flex-direction: row;
-    justify-content: start; 
-    align-items: start;
     width: 100%;
     transition: transform 0.2s ease;
     padding: 0px;
@@ -201,9 +200,7 @@ li:hover{
 }
 
 .checked{
-    text-decoration: line-through;
-    text-decoration-thickness: 2px;
-    text-decoration-color: black;
+    text-decoration: line-through 3px #553939;
 }
 
 #listContainer .checked::before{
@@ -408,4 +405,9 @@ li:hover{
 
 .displayNone{
     display: none;
+}
+
+.accordion{
+    width: 90%;
+    margin: 100px auto;
 }
