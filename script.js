@@ -16,6 +16,9 @@
     let errorMessage = document.getElementById('errorMessage');
     let SelectPriorityText = document.getElementById('SelectPriorityText');
     let datepicker = document.getElementById('datepicker');
+    let domFilters = document.getElementById('domFilters');
+    let domTasks = document.getElementById('domTasks');
+    let countVariable;
     let priorityText = '';
     let alarmTime;
     let alarmInterval;
@@ -63,6 +66,7 @@
             gsap.from(li, { opacity: 0, x: -100, duration: 0.3 });
             typeTasks.value = '';
             typeTasks2.value = '';
+            countVariable = 1;
             saveData();
             addEditEvent(editSpan, inputInsideLi, inputInsideLi2, priorityList, h1);
             return [li, span, editSpan, priorityList, h1, inputInsideLi];
@@ -174,10 +178,11 @@
 
     function addTask() {
             CreateAllElements();
+            domTasks.innerText = `Total tasks - ${countVariable}`
     }
 
     listContainer.addEventListener('click', function (e) {
-        if (e.target.tagName === 'LI') {
+        if (e.target.classList.contains === 'LI') {
             e.target.classList.toggle("checked");
             saveData();
         } else if (e.target.classList.contains("TrashImg")) {
@@ -198,6 +203,8 @@
               date: item.querySelector("h1").textContent,
               priority: item.querySelector("p").textContent,
               status: item.classList.contains("checked") ? "completed" : "pending",
+              totalTask: countVariable,
+              domTask: domTasks.innerText,
             };
             tasks.push(task);
         });
@@ -218,6 +225,7 @@
             const h1 = document.createElement("h1");
             updatePriorityClass(priorityList, task.priority);
 
+            domTasks.innerText = `Total tasks - ${task.totalTask}`;
             inputInsideLi.textContent = task.title;
             inputInsideLi2.textContent = task.description;
             priorityList.textContent = task.priority;

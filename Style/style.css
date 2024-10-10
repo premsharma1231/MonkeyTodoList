@@ -111,7 +111,7 @@ li:hover{
     justify-content: center; 
     align-items: start;
     gap: 10px;
-    margin: 20px 0px 40px 0px;
+    margin: 0px 0px 40px 0px;
     width: 100%;
     transition: transform 0.2s ease;
     padding: 0px;
@@ -233,6 +233,16 @@ li:hover{
     display: none;
     transition: all 0.2s ease;
     color: black;
+}
+
+.childTaskListing{
+    display: flex;
+    justify-content: space-between;
+}
+
+.childTaskListing p{
+    padding: 10px 5px;
+    margin: 0px;
 }
 
 #forRelative{
