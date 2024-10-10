@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 *{
     margin: 0;
     padding: 0;
@@ -10,396 +9,35 @@
 }
 
 *::selection{
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
-
 body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: auto;
     min-height: 100vh;
     background-color: white;
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    width: 100vw;
-    margin: 50px auto auto auto;
-    padding: 0px;
-    box-shadow: 0px 0px 20px;
-    border-radius: 12px;
-}
-
-.heading{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.input-group {
     width: 100%;
-    padding: 20px 45px;
-    background-color: #321919;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+    margin: 10px auto;
 }
-
-.input-group-text{
-    background-color: darkgray;
-    margin: 0px;
-}
-
-
-.headOne{
-    font-size: 1.7rem;
-    font-weight: 500;
-    margin: 0px 0px 0px 0px;
-    padding: 0;
-    color: white;
-}
-
-.heading img{
-    width: 4vw;
-}
-
-.mostImpDiv{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.input-group{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 10px 0px 10px 0px;
-}
-
-#typeTasks{
-    margin: 0px 10px 0px 0px;
-    padding: 0px 0px 0px 10px;
-    background-color: grey; 
-    cursor: pointer;
-    color: black;
-    width: 25vw;
-}
-
-#typeTasks2{
-    margin: 0px;
-    padding: 0px 0px 0px 10px;
-    background-color: grey; 
-    cursor: pointer;
-    color: black;
-    width: 35rem;
-}
-/* 
-#typeTasks2::placeholder{
-    color: black;
-}
-
-#typeTasks::placeholder{
-    color: black;
-} */
 
 #addTasksButton{
-    height: 40px;
-    width: 426px;
-    font-size: 1.5rem;
-    background-color: gray;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 0px;
-}
-
-#addTasksButton:hover{
-    color: white;
-    background-color: #553939;
-    transition: all 0.5s;
-}
-
-li:hover{
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-ul{
-    display: grid;
-    grid-template-columns: repeat(3, 340px);
-    gap: 10px;
-    margin: 20px 0px 40px 0px;
-    flex-direction: row;
-    justify-content: start; 
-    align-items: start;
-    width: 100%;
-    transition: transform 0.2s ease;
-    padding: 0px;
-}
-
-ul li::before{
-    content: '';
-    margin: 10px 10px 15px 0px;
-    height: 25px;
-    width: 25px;
-    z-index: 5;
-    background-image: url(./images/unchecked.png);
-    background-size: cover;
-    background-position: center center;
-}
-
-ul li .TrashImg{
-    position: absolute;
-    right: 0px;
-    z-index: 5;
-    bottom: 0px;
-    width: 45px;
-    padding: 10px;
-    color: black;
-    font-size: 30px;
-    background-size: cover;
-    background-color: #E9EFEC;
-    border-top-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-    background-position: center center;
-}
-ul li .editSpan{
-    position: absolute;
-    left: 0px;
-    z-index: 5;
-    bottom: 0px;
-    width: 45px;
-    padding: 10px;
-    color: black;
-    font-size: 30px;
-    background-size: cover;
-    background-color: #C4DAD2;
-    border-top-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-    background-position: center center;
-}
-
-ul li .editSpan:hover{
-    background-color: rgb(212, 212, 212);
-    transition: all 0.4s;
-    cursor: pointer;
-}
-
-ul li .TrashImg:hover{
-    background-color: white;
-    transition: all 0.4s;
-    cursor: pointer;
-}
-
-.EditAccessNow {
-    position: absolute;
-    top: -9px;
-    left: 0px;
-    width: 850px;
-    height: 38px;
-    z-index: 10;
-    padding-left: 20px;
-}
-
-.saveAfterEdit{
-    position: absolute;
-    top: -9px;
-    right: 0px;
-    width: 75px;
-    height: 38px;
-    z-index: 10;
-}
-
-.checked{
-    text-decoration: line-through;
-    text-decoration-thickness: 2px;
-    text-decoration-color: black;
-}
-
-ul .checked::before{
-    content: '';
-    margin: 10px 10px 15px 0px;
-    z-index: 5;
-    background-image: url(./images/greenchecked.png);
-    background-size: cover;
-    background-position: center center;
+    width: 120px;
 }
 
 #resetTasksButton{
-    height: 40px;
-    width: 300px;
-    margin-left: 5px;
-    font-size: 1rem;
-    background-color: gray;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 0px;
-}
-
-#resetTasksButton:hover{
-    color: white;
-    background-color: #553939;
-    transition: all 0.5s;   
-}
-
-#errorMessage{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 16px;
-    top: 58px;
-    font-size: 13px;
-    display: none;
-    transition: all 0.2s ease;
-    color: black;
-}
-
-#forRelative{
-    position: relative;
-}
-
-#crossPng{
-    width: 14px;
-    padding-right: 6px;
-}
-
-#datepicker{
-    margin: 0px 7px 0px 0px;
-    height: 40px;
-    text-align: center;
-    border: 1px solid gray;
-    border-radius: 7px;
-}
-
-#timeSelector{
-    margin: 0px 7px 0px 0px;
-    height: 35px;
-    width: 80px;
-    padding-left: 5px;
-}
-
-#SelectPriority{
-    padding: 0px 5px 0px 0px;
-}
-
-#SelectPriorityText{
-    width: 160px;
-    height: 40px;
-}
-
-#SelectPriority h1{
-    font-size: medium;
-}
-
-.dropdown-item{
-    list-style-type: none;
-    width: 100%;
-    margin: 0px;
-}   
-
-.high-priority:hover{
-    background-color: rgb(49, 102, 36);
-    color: white;
-}
-.medium-priority:hover{
-    background-color: rgb(23, 128, 146);
-    color: white;
-}
-.low-priority:hover{
-    background-color: rgb(192, 55, 21);
-    color: white;
-}
-.dropdown-menu{
     width: 100px;
 }
 
-ul li p{
+#SelectPriorityText {
+    width: 130px;
     font-size: small;
-    text-align: center;
-    margin: 0px;
-    padding: 0px;
-    border-left: 2px solid black;
-    border-right: 2px solid black;
-    padding: 0px 5px;
-}
-
-ul li h1{
-    position: absolute;
-    top: 20px;
-    right: 5%;
-    margin: 0px;
-    padding: 0px;
-    font-size: 15px;
-    text-align: center;
-}
-
-.highPriorityClass{
-    background-color: rgb(187, 187, 187);
-    color: black;
-    font-weight: 500;
-    height: 40px;
-    position: absolute;
-    bottom: 0px;
-    left: 66px;
-    width: 60%;
-    padding-top: 10px;
-    border-top-left-radius: 15%;
-    border-top-right-radius: 15%;
-    border-top: 2px solid white;
-}
-
-.mediumPriorityClass{
-    background-color: rgb(187, 187, 187);
-    color: black;
-    font-weight: 500;
-    height: 40px;
-    position: absolute;
-    bottom: 0px;
-    left: 66px;
-    width: 60%;
-    padding-top: 10px;
-    border-top-left-radius: 15%;
-    border-top-right-radius: 15%;
-    border-top: 2px solid white;
-}
-.lowPriorityClass{
-    background-color: rgb(187, 187, 187);
-    color: black;
-    font-weight: 500;
-    height: 40px;
-    position: absolute;
-    bottom: 0px;
-    left: 66px;
-    width: 60%;
-    padding-top: 10px;
-    border-top-left-radius: 15%;
-    border-top-right-radius: 15%;
-    border-top: 2px solid white;
 }
 
 
-/* Using Bootstrap */
-.card-title{
-    padding: 0px;
-    width: 300px;
-    font-size: x-large;
-    color: white;
-}
-
-.card-text{
-    padding-bottom: 50px;
-}
-
-.card{
-    height: auto;
-    width: 340px;
-    cursor: pointer;
-    min-height: 200px;
-    padding: 0px 20px;
-    border: 1px solid #16423C;
-    background-color: #704F4F;
-    color: white;
+#listContainer{
+    grid-template-columns: repeat(2, 340px);
 }

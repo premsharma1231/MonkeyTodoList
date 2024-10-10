@@ -1,5 +1,6 @@
     window.onload = () => {
         gsap.from(".container", { opacity: 0, y: -50, duration: 0.5 });
+        gsap.from(".accordion", { opacity: 0, y: -50, duration: 0.5 });
         showList();
     };
     
