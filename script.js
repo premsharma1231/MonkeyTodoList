@@ -2,6 +2,7 @@
         gsap.from(".container", { opacity: 0, y: -50, duration: 0.5 });
         gsap.from(".accordion", { opacity: 0, y: -50, duration: 0.5 });
         showList();
+        saveData();
     };
     
     flatpickr("#datepicker", {
@@ -16,9 +17,12 @@
     let errorMessage = document.getElementById('errorMessage');
     let SelectPriorityText = document.getElementById('SelectPriorityText');
     let datepicker = document.getElementById('datepicker');
-    let domFilters = document.getElementById('domFilters');
     let domTasks = document.getElementById('domTasks');
-    let countVariable;
+    let domFilters = document.getElementById('domFilters');
+    let domDontKnow = document.getElementById('domDontKnow');
+    let completedTasksElement = document.getElementById('completedTasks');
+    let pendingTasksElement = document.getElementById('pendingTasks');
+    let FilterViewInner = document.getElementById('FilterViewInner');
     let priorityText = '';
     let alarmTime;
     let alarmInterval;
@@ -66,7 +70,6 @@
             gsap.from(li, { opacity: 0, x: -100, duration: 0.3 });
             typeTasks.value = '';
             typeTasks2.value = '';
-            countVariable = 1;
             saveData();
             addEditEvent(editSpan, inputInsideLi, inputInsideLi2, priorityList, h1);
             return [li, span, editSpan, priorityList, h1, inputInsideLi];
@@ -114,7 +117,7 @@
                 inputInsideLi.contentEditable = true;
                 inputInsideLi2.contentEditable = true;
                 DateEditing = document.createElement('input');
-                DateEditing.type = Text;
+                DateEditing.type = 'text';
                 DateEditing.value = h1.innerText;
                 DateEditing.placeholder = 'Add or edit date!';
                 priorityDropdown = document.createElement('select');
@@ -175,20 +178,34 @@
         }
     };
     priority();
+    
+    function updateTaskStats() {
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        const totalTasks = tasks.length;
+        const completedTasks = tasks.filter(task => task.status === "completed").length;
+        const pendingTasks = totalTasks - completedTasks;
+    
+        // Assuming you have some elements in your HTML to display these stats
+    
+        domFilters.innerText = `Total tasks: ${totalTasks}`;
+        domTasks.innerText = `Completed tasks: ${completedTasks}`;
+        domDontKnow.innerText = `Pending tasks: ${pendingTasks}`;
+    }
+
+
 
     function addTask() {
             CreateAllElements();
-            domTasks.innerText = `Total tasks - ${countVariable}`
     }
 
     listContainer.addEventListener('click', function (e) {
-        if (e.target.classList.contains === 'LI') {
+        if (e.target.tagName === 'LI') {
             e.target.classList.toggle("checked");
             saveData();
-        } else if (e.target.classList.contains("TrashImg")) {
+        } else if (e.target.classList.contains('TrashImg')) {
             e.target.parentElement.remove();
             saveData();
-        } else if (e.target.classList.contains("editSpan")) {
+        } else if (e.target.classList.contains('editSpan')) {
             gsap.from(e.target, { opacity: 0, x: 2, duration: 0.1 });
         }
     });
@@ -203,12 +220,11 @@
               date: item.querySelector("h1").textContent,
               priority: item.querySelector("p").textContent,
               status: item.classList.contains("checked") ? "completed" : "pending",
-              totalTask: countVariable,
-              domTask: domTasks.innerText,
             };
             tasks.push(task);
         });
         localStorage.setItem("tasks", JSON.stringify(tasks));
+        updateTaskStats();
     }
 
     function showList() {
@@ -237,7 +253,6 @@
             listContainer.appendChild(li);
             addEditEvent(editSpan, inputInsideLi, inputInsideLi2, priorityList, h1);
             });
-
 
             const savedFilter = localStorage.getItem('filter');
             if (savedFilter) {

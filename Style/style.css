@@ -396,13 +396,9 @@ li:hover{
     top: 0px;
     left: 0px;
     z-index: 200;
-    background-color:#321919;
+    background-color:lightgray;
     color: white;
     font-weight: 600;
-}
-
-.active{
-    margin-left: 20px;
 }
 
 .displayNone{

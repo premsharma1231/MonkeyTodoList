@@ -146,3 +146,25 @@ body{
     width: 285px;
     text-align: center;
 }
+
+.accordion{
+    width: 90%;
+    margin: 50px auto;
+}
+
+.navbar-brand {
+    margin-left: 10px;
+}
+
+.childTaskListing p{
+    padding: 5px 5px;
+    margin: 0px;
+    text-align: center;
+    font-size: 12px;
+    background-color: darkgray;
+    margin: 10px 3px;
+    border-radius: 5px;
+}
+.childTaskListing{
+    margin: 0px 10px;
+}

@@ -18,16 +18,17 @@
     <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light h-28">
-    <a class="navbar-brand text-white" href="#">MonkeyTodoList</a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link text-white" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="./HTML/features.html">Features</a>
-        </li>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">MonkeyTodoList</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav text-center">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" href="./HTML/features.html">Features</a>
+        </div>
       </div>
     </div>
   </nav>
@@ -57,7 +58,7 @@
               <button id="addTasksButton" onclick="addTask()" class="btn">+</button>
               <button type="button" class="btn btn-primary" onclick="deletingData()" id="resetTasksButton">Reset</button>
               <div class="dropdown" id="FilterView">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" id="FilterViewInner" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Filter View
                 </button>
                 <ul class="dropdown-menu">
@@ -71,10 +72,11 @@
               </div>
         </div>
         <div class="taskListing">
-          <!-- <div class="childTaskListing">
-            <p id="domFilters">No filters applied</p>
-            <p id="domTasks">Add Tasks</p>
-          </div> -->
+          <div class="childTaskListing">
+            <p id="domFilters"></p>
+            <p id="domTasks"></p>
+            <p id="domDontKnow"></p>
+          </div>
             <ul class="liOne" id="listContainer">
           </ul>
         </div>
