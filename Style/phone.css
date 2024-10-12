@@ -93,6 +93,12 @@ body{
 
 .card{
     width: 280px;
+    min-height: 170px;
+}
+
+.card-text{
+    margin-bottom: 50px;
+    font-size: 0.8rem;
 }
 
 .PriorityClass{
@@ -175,4 +181,8 @@ body{
     text-align: center;
     border: 1px solid gray;
     border-radius: 7px;
+}
+
+.card-title {
+    font-size: 1.2rem;
 }
