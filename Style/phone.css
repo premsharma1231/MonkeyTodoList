@@ -51,7 +51,7 @@ body{
 }
 
 #addTasksButton{
-    width: 150px;
+    width: 110px;
     margin: 0px;
     margin-top: 5px;
     height: 35px;
@@ -64,14 +64,14 @@ body{
 }
 
 #resetTasksButton{
-    width: 130px;
+    width: 110px;
     margin: 0px;
     margin-top: 5px;
     height: 35px;
 }
 
 #SelectPriorityText {
-    width: 285px;
+    width: 170px;
     margin: 0px;
     height: 35px;
 }
@@ -115,7 +115,7 @@ body{
 
 .dropdown-toggle{
     height: 35px;
-    width: 285px;
+    width: 170px;
 }
 
 .navbar{
@@ -157,14 +157,22 @@ body{
 }
 
 .childTaskListing p{
-    padding: 5px 5px;
+    padding: 5px 4px;
     margin: 0px;
     text-align: center;
-    font-size: 12px;
+    font-size: 10px;
     background-color: darkgray;
-    margin: 10px 3px;
+    margin: 3px 2px;
     border-radius: 5px;
 }
 .childTaskListing{
     margin: 0px 10px;
+}
+
+#datepicker{
+    margin: 0px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 7px;
 }

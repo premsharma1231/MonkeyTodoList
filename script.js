@@ -1,6 +1,6 @@
     window.onload = () => {
         gsap.from(".container", { opacity: 0, y: -50, duration: 0.5 });
-        gsap.from(".accordion", { opacity: 0, y: -50, duration: 0.5 });
+        gsap.from("#accordionExample", { opacity: 0, y: -50, duration: 0.5 });
         showList();
         saveData();
     };
@@ -8,6 +8,7 @@
     flatpickr("#datepicker", {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
+        disableMobile: "true"
     });
 
     let addTasksButton = document.getElementById('addTasksButton');
@@ -98,11 +99,7 @@
                 selectedPriority = priorityDropdown.value;
                 priorityList.innerText = selectedPriority;
                 h1.innerText = DateEditing.value;
-                if (selectedPriority !== '' && selectedPriority.trim() !== '' && selectedPriority !== null) {
-                    priorityList.classList.add('PriorityClass');
-                } else {
-                    priorityList.classList.remove('PriorityClass');
-                }
+
                 DateEditing.classList.remove('datepickerEdit');
                 editSpan.src = './images/edit (1).png';
                 inputInsideLi.style.border = 'none';
@@ -138,11 +135,21 @@
                 flatpickr(".datepickerEdit", {
                     enableTime: true,
                     dateFormat: "Y-m-d H:i",
+                    disableMobile: "true"
                 });
             }
             isEditing = !isEditing;
         });
     };
+
+    let farziHai = () =>{
+        if (selectedPriority !== '' && selectedPriority.trim() !== '' && selectedPriority !== null) {
+            priorityList.classList.add('PriorityClass');
+        } else {
+            priorityList.classList.remove('PriorityClass');
+        }
+    }
+
 
     listContainer.addEventListener('mouseover', (e) => {
         const liElement = e.target.closest('li');
@@ -349,45 +356,57 @@
         });
     }
 
-    function setAlarm() {
-        const input = task.date;
-        const selectedTime = new Date(input).getTime();
-        alarms.push({ time: selectedTime, task });
+    function setAlarm(task) {
+        const selectedTime = new Date(task.date).getTime(); // Convert task date to timestamp
+        alarms.push({ time: selectedTime, task }); // Push alarm and task details to the alarms array
+        
+        // Clear any existing interval and set a new one to check alarms every second
         if (alarmInterval) clearInterval(alarmInterval);
-        alarmInterval = setInterval(checkAlarms, 1000);
+        alarmInterval = setInterval(checkAlarms, 1000); // Set interval to check alarms every second
     }
 
-    function checkAlarm() {
-        const now = new Date().getTime();
-        alarms.forEach((alarm, index) => {
-            if (now >= alarm.time) {
-                triggerAlarm(alarm.task);
-                alarms.splice(index, 1); // Remove triggered alarm
+// Function to check all active alarms
+function checkAlarms() {
+    const now = new Date().getTime(); // Get current timestamp
+    
+    alarms.forEach((alarm, index) => {
+        if (now >= alarm.time) { // If the current time has reached or passed the alarm time
+            triggerAlarm(alarm.task); // Trigger the alarm with the task details
+            alarms.splice(index, 1); // Remove the triggered alarm from the array
+        }
+    });
+
+    // Clear the interval if no alarms are left
+    if (alarms.length === 0 && alarmInterval) {
+        clearInterval(alarmInterval);
+        alarmInterval = null;
+    }
+}
+
+// Function to trigger an alarm notification
+function triggerAlarm(task) {
+    if (Notification.permission === "granted") { // If notification permission is granted
+        new Notification("Alarm!", {
+            body: `The time for your task "${task.title}" is up!`, // Show task title in notification
+            icon: "./images/favicon-32x32.png"
+        });
+    } else if (Notification.permission !== "denied") { // If notification permission is not denied
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") { // Request permission and show notification if granted
+                new Notification("Alarm!", {
+                    body: `The time for your task "${task.title}" is up!`,
+                    icon: "./images/favicon-32x32.png"
+                });
             }
         });
     }
+}
 
-    function triggerAlarm() {
-        if (Notification.permission === "granted") {
-            new Notification("Alarm!", {
-                body: "The time for your task is up!",
-                icon: "./images/favicon-32x32.png"
-            });
-        } else if (Notification.permission !== "denied") {
-            Notification.requestPermission().then(permission => {
-                if (permission === "granted") {
-                    new Notification("Alarm!", {
-                        body: "The time for your task is up!",
-                        icon: "./images/favicon-32x32.png"
-                    });
-                }
-            });
-        }
-    }
+
 
     let requestNotificationPermission = () => {
         if (Notification.permission === 'default') {
             Notification.requestPermission();
         }
-    }
+    };
     requestNotificationPermission();
