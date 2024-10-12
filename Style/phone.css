@@ -89,6 +89,7 @@ body{
 
 #listContainer{
     grid-template-columns: repeat(1, 280px);
+    margin-top: 10px;
 }
 
 .card{
