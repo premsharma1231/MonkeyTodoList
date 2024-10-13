@@ -1,7 +1,7 @@
 # 📝 **MonkeyTodoList**  
 A simple yet powerful **To-Do List Application** that helps you stay organized and productive. Manage your tasks, set priorities, and track progress with ease!
 
-![MonkeyTodoList Screenshot](https://via.placeholder.com/1000x400?text=App+Preview)  
+![MonkeyTodoList Screenshot](https://raw.githubusercontent.com/premsharma1231/MonkeyTodoList/refs/heads/main/images/Screenshot%20(162).png)  
 <!-- Replace the link above with an actual screenshot of your app -->
 
 ## 🌟 **Features**  
@@ -39,7 +39,7 @@ Check out the live demo here: [MonkeyTodoList](https://premsharma1231.github.io/
 ## 📸 **Screenshots**  
 | Desktop View                           | Mobile View                           |
 |----------------------------------------|---------------------------------------|
-| ![Desktop](https://via.placeholder.com/400x300) | ![Mobile](https://via.placeholder.com/400x300) |  
+| ![Desktop](https://raw.githubusercontent.com/premsharma1231/MonkeyTodoList/refs/heads/main/images/Screenshot%20(162).png) | ![Mobile](https://raw.githubusercontent.com/premsharma1231/MonkeyTodoList/refs/heads/main/images/Phone%20Screen%20Shot.jpg) |  
 <!-- Replace the placeholders with your app's screenshots -->
 
 ---
