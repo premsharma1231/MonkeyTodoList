@@ -4,6 +4,19 @@
         showList();
         saveData();
     };
+    // Swal.fire({
+    //     title: "Remember its necessary to select all the fields to make the todolist work perfectly.",
+    //     width: 600,
+    //     padding: "3em",
+    //     color: "#716add",
+    //     background: "#fff url(/images/trees.png)",
+    //     backdrop: `
+    //       rgba(0,0,123,0.4)
+    //       url("/images/nyan-cat.gif")
+    //       left top
+    //       no-repeat
+    //     `
+    //   });
     
     flatpickr("#datepicker", {
         enableTime: true,
@@ -25,8 +38,6 @@
     let pendingTasksElement = document.getElementById('pendingTasks');
     let FilterViewInner = document.getElementById('FilterViewInner');
     let priorityText = '';
-    let alarmTime;
-    let alarmInterval;
     let li, span, editSpan, priorityList, h1, inputInsideLi, inputInsideLi2;
     
     new Sortable(listContainer, {
@@ -56,14 +67,21 @@
         h1 = document.createElement("h1");
         inputInsideLi.role = "input";
         inputInsideLi2.role = "input";
-
-            // Appending Class
-            inputInsideLi.innerText = typeTasks.value ? typeTasks.value : "Edit Text";
-            inputInsideLi2.innerText = typeTasks2.value ? typeTasks2.value : "Add description!";
-            h1.innerText = datepicker.value;
-            updatePriorityClass(priorityList, priorityText)
-
-            // Appending Child
+        
+        // Appending Class
+        inputInsideLi.innerText = typeTasks.value;
+        inputInsideLi2.innerText = typeTasks2.value;
+        h1.innerText = datepicker.value;
+        document.querySelectorAll(".priorityButton").forEach(button => {
+            button.addEventListener("click", () => {
+                priority(button.innerText);
+            });
+        });
+        
+        updatePriorityClass(priorityList, priorityText)
+        
+        // Appending Child
+        whatIsBlankCheck(typeTasks, typeTasks2, datepicker, priorityText);
             li.append(inputInsideLi, inputInsideLi2, priorityList, h1, span, editSpan);
             li.classList.add('card');
             listContainer.insertAdjacentElement('afterbegin', li);
@@ -72,9 +90,33 @@
             typeTasks.value = '';
             typeTasks2.value = '';
             saveData();
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your work has been added and saved!",
+                showConfirmButton: false,
+                timer: 1000
+              });
             addEditEvent(editSpan, inputInsideLi, inputInsideLi2, priorityList, h1);
             return [li, span, editSpan, priorityList, h1, inputInsideLi];
     };
+
+    let  whatIsBlankCheck = (typeTasks, typeTasks2, datepicker, priorityText) =>{
+        if (
+            typeTasks.value.trim() === '' ||
+            typeTasks2.value.trim() === '' ||
+            datepicker.value.trim() === '' ||
+            priorityText.trim() === ''
+        ) {
+            Swal.fire({
+                title: "Error!",
+                text: "You have to fill title, description, date, and priority list to add todo.",
+                icon: "error",
+                button: "Cool"
+            });
+        }
+    };
+    
 
 
     function updatePriorityClass(priorityList, priorityText) {
@@ -95,11 +137,10 @@
             if (isEditing) {
                 inputInsideLi.contentEditable = false;
                 inputInsideLi2.contentEditable = false;
-
                 selectedPriority = priorityDropdown.value;
                 priorityList.innerText = selectedPriority;
                 h1.innerText = DateEditing.value;
-
+                farziHai(selectedPriority, priorityList);
                 DateEditing.classList.remove('datepickerEdit');
                 editSpan.src = './images/edit (1).png';
                 inputInsideLi.style.border = 'none';
@@ -142,7 +183,7 @@
         });
     };
 
-    let farziHai = () =>{
+    let farziHai = (selectedPriority, priorityList) =>{
         if (selectedPriority !== '' && selectedPriority.trim() !== '' && selectedPriority !== null) {
             priorityList.classList.add('PriorityClass');
         } else {
@@ -172,19 +213,11 @@
     });
 
 
-    let priority = (priority) => {
-        if (priority === 'High Priority') {
-            priorityText = 'High Priority';
-            SelectPriorityText.innerHTML = priorityText;
-        } else if (priority === 'Medium Priority') {
-            priorityText = 'Medium Priority';
-            SelectPriorityText.innerHTML = priorityText;
-        } else if (priority === 'Low Priority') {
-            priorityText = 'Low Priority';
-            SelectPriorityText.innerHTML = priorityText;
-        }
-    };
-    priority();
+    function priority(priority) {
+        priorityText = priority;
+        SelectPriorityText.innerHTML = priorityText;
+    }
+    
     
     function updateTaskStats() {
         const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -205,7 +238,7 @@
             CreateAllElements();
     }
 
-    listContainer.addEventListener('touchstart', function (e) {
+    listContainer.addEventListener('click', function (e) {
         if (e.target.tagName === 'LI') {
             e.target.classList.toggle("checked");
             saveData();
@@ -331,8 +364,7 @@
             }
           });
         }
-      }
-
+      };
    
 
 
@@ -354,59 +386,4 @@
                 }});
             }
         });
-    }
-
-    function setAlarm(task) {
-        const selectedTime = new Date(task.date).getTime(); // Convert task date to timestamp
-        alarms.push({ time: selectedTime, task }); // Push alarm and task details to the alarms array
-        
-        // Clear any existing interval and set a new one to check alarms every second
-        if (alarmInterval) clearInterval(alarmInterval);
-        alarmInterval = setInterval(checkAlarms, 1000); // Set interval to check alarms every second
-    }
-
-// Function to check all active alarms
-function checkAlarms() {
-    const now = new Date().getTime(); // Get current timestamp
-    
-    alarms.forEach((alarm, index) => {
-        if (now >= alarm.time) { // If the current time has reached or passed the alarm time
-            triggerAlarm(alarm.task); // Trigger the alarm with the task details
-            alarms.splice(index, 1); // Remove the triggered alarm from the array
-        }
-    });
-
-    // Clear the interval if no alarms are left
-    if (alarms.length === 0 && alarmInterval) {
-        clearInterval(alarmInterval);
-        alarmInterval = null;
-    }
-}
-
-// Function to trigger an alarm notification
-function triggerAlarm(task) {
-    if (Notification.permission === "granted") { // If notification permission is granted
-        new Notification("Alarm!", {
-            body: `The time for your task "${task.title}" is up!`, // Show task title in notification
-            icon: "./images/favicon-32x32.png"
-        });
-    } else if (Notification.permission !== "denied") { // If notification permission is not denied
-        Notification.requestPermission().then(permission => {
-            if (permission === "granted") { // Request permission and show notification if granted
-                new Notification("Alarm!", {
-                    body: `The time for your task "${task.title}" is up!`,
-                    icon: "./images/favicon-32x32.png"
-                });
-            }
-        });
-    }
-}
-
-
-
-    let requestNotificationPermission = () => {
-        if (Notification.permission === 'default') {
-            Notification.requestPermission();
-        }
     };
-    requestNotificationPermission();
